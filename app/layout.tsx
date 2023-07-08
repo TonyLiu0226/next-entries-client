@@ -3,13 +3,14 @@ import { Inter } from 'next/font/google'
 import React from 'react'
 import Navbar from 'flowbite-react'
 import NavMenu from '../components/Navbar'
-import {Firebase} from '../firebase/firebase'
+import Firebase from '../firebase/firebase'
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
 const inter = Inter({ subsets: ['latin'] })
 
 //initialize firebase
 try {
-  const fb = Firebase();
+  const fb = Firebase;
   console.log(fb);
 }
 catch (e) {
