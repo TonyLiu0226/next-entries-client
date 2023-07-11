@@ -5,9 +5,15 @@ import { useState, useEffect } from 'react'
 import Form from 'flowbite-react'
 import Firebase from '../firebase/firebase';
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
+//initializes authentication instance
 const auth = getAuth(Firebase)
+
+
 const Login = () => {
+
+  const router = useRouter()
 
   //form fields
   const [email, setEmail] = useState<string>("")
@@ -31,6 +37,7 @@ const Login = () => {
       const result = await signInWithEmailAndPassword(auth, email, password)
       console.log(result)
       setLoginError(false)
+      router.push('/dashboard')
     }
     catch (e) {
       console.log(e)

@@ -5,6 +5,7 @@ import Navbar from 'flowbite-react'
 import NavMenu from '../components/Navbar'
 import Firebase from '../firebase/firebase'
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import {AuthContextProvider} from './authContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,8 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className={inter.className} >
-        <NavMenu login={true}></NavMenu>
-      <main className="mt-16 min-h-screen bg-white">{children}</main>
+        <AuthContextProvider>
+          <NavMenu ></NavMenu>
+          <main className="mt-16 min-h-screen bg-white">{children}</main>
+        </AuthContextProvider>
       </body>
     </html>
   )
