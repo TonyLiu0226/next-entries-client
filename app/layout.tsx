@@ -31,7 +31,7 @@ export default function RootLayout({
         <AuthContextProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <NavMenu ></NavMenu>
-            <main className="mt-16 min-h-screen bg-white">{children}</main>
+            <main className="mt-16 min-h-screen">{children}</main>
           </ThemeProvider>
         </AuthContextProvider>
       </body>
