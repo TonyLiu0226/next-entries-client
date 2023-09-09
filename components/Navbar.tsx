@@ -10,6 +10,7 @@ import {
 import Firebase from '../firebase/firebase';
 
 import {useContext, useEffect, useState} from 'react'
+import { useInterval } from 'usehooks-ts'
 
 import { Collapse } from "flowbite";
 import type { CollapseOptions, CollapseInterface } from "flowbite";
@@ -22,42 +23,45 @@ import {faSun} from '@fortawesome/free-regular-svg-icons'
 const NavMenu = () => {
 
         //sets up interface to allow user menu and mobile navbar dropdowns to work
-        useEffect(() => {
-            
-            // set the target element that will be collapsed or expanded (eg. navbar menu)
-            const $targetEl: HTMLElement | null = document.getElementById('user-dropdown');
+            const [timer, setTimer] = useState<boolean>(false)
+            const [collapseCreated, setCollapseCreated] = useState<boolean>(false)
 
-            // optionally set a trigger element (eg. a button, hamburger icon)
-            const $triggerEl: HTMLElement | null = document.getElementById('user-menu-button');
+            useInterval(() => {
+                setTimer(true)
+            }, 1000)
 
-            // set the target element that will be collapsed or expanded (eg. navbar menu)
-            const $targetEl2: HTMLElement | null = document.getElementById('navbar-sticky');
-
-            // optionally set a trigger element (eg. a button, hamburger icon)
-            const $triggerEl2: HTMLElement | null = document.getElementById('mobile');
-
-            // optional options with default values and callback functions
-            const options: CollapseOptions = {
-                onCollapse: () => {
-                    console.log('element has been collapsed')
-                },
-                onExpand: () => {
-                    console.log('element has been expanded')
-                },
-                onToggle: () => {
-                    console.log('element has been toggled')
+            useEffect(() => {
+            const initializeCollapse = () => {
+                if (collapseCreated == false) {
+                    const userDropdownEl = document.getElementById('user-dropdown')
+                    const userDropdownTrigger = document.getElementById('user-menu-button')
+                    const mobileEl = document.getElementById('navbar-sticky')
+                    const mobileTrigger = document.getElementById('mobile')
+                    const options: CollapseOptions = {
+                        onCollapse: () => {
+                            console.log('element has been collapsed')
+                        },
+                        onExpand: () => {
+                            console.log('element has been expanded')
+                        },
+                        onToggle: () => {
+                            console.log('element has been toggled')
+                        }
+                    };
+                    if (userDropdownEl && userDropdownTrigger && mobileEl && mobileTrigger) {
+                        const collapse: CollapseInterface = new Collapse(userDropdownEl, userDropdownTrigger, options);
+                        const collapse2: CollapseInterface = new Collapse(mobileEl, mobileTrigger, options);
+                        setCollapseCreated(true)
+                        console.log(userDropdownEl)
+                        console.log(userDropdownTrigger)
+                        console.log(mobileEl)
+                        console.log(mobileTrigger)
+                    }
                 }
-            };
-
-/*
-* $targetEl: required
-* $triggerEl: optional
-* options: optional
-*/
-            const collapse: CollapseInterface = new Collapse($targetEl, $triggerEl, options);
-
-            const collapse2: CollapseInterface = new Collapse($targetEl2, $triggerEl2, options)
-        }, [])
+            }
+            initializeCollapse()
+            
+        }, [timer])
     
         //gets user from our AuthContext
         const user = useContext(AuthContext)

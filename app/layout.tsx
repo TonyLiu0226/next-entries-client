@@ -30,8 +30,8 @@ export default function RootLayout({
       <body className={inter.className} >
         <AuthContextProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <NavMenu ></NavMenu>
-            <main className="mt-16 min-h-screen">{children}</main>
+              <NavMenu ></NavMenu>
+              <main className="mt-16 min-h-screen">{children}</main>
           </ThemeProvider>
         </AuthContextProvider>
       </body>
