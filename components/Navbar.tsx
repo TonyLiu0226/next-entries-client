@@ -102,8 +102,8 @@ const NavMenu = () => {
                     <script src="https://kit.fontawesome.com/a1540a5ac8.js"></script>
                     <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                         <a href="/" className="flex items-center">
-                            <img src="https://flowbite.com/docs/images/logo.svg" className="h-6 mr-1" alt="Flowbite Logo" />
-                            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+                            <img src="moodsense_logo_partial.png" className="w-36 h-12 mr-1" alt="MoodSense" />
+                            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
                         </a>
                             <button
                                 className={`rounded-md hover:scale-110 active:scale-100 `}
@@ -132,9 +132,9 @@ const NavMenu = () => {
                 <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
                     <script src="https://kit.fontawesome.com/a1540a5ac8.js"></script>
                     <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                        <a href="https://flowbite.com/" className="flex items-center">
-                            <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" />
-                            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+                    <a href="/" className="flex items-center">
+                            <img src="moodsense_logo_partial.png" className="w-36 h-12 mr-1" alt="MoodSense" />
+                            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
                         </a>
                         <div className="flex items-center md:order-2">
                             <button type="button" className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
