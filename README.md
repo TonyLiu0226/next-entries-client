@@ -1,4 +1,4 @@
-#This is the client-side code for the app, for the server-side code please go [here](https://github.com/TonyLiu0226/next-entries-backend)
+# This is the client-side code for the app, for the server-side code please go [here](https://github.com/TonyLiu0226/next-entries-backend)
 
 ## Getting Started
 
