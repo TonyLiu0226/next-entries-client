@@ -1,23 +1,38 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import {AuthContext } from '../authContext'
-import React, {useContext} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
+import PostCard from '../../components/postCard'
+import {PostProps} from '../../interfaces/postProps'
+import { v4 as uuidv4 } from 'uuid';
 
-export default function Home() {
-    //protected page, for non logged in users only
+export default function DashBoard(
+) {
+    //protected page, for logged in users only
     const router = useRouter()
     const user = useContext(AuthContext)
     if (user.user == null) {
       router.push("/")
     }
 
+    const [postData, setPostData] = useState<any[]>([])
+
+    useEffect(() => {
+      fetch(process.env.NEXT_PUBLIC_SERVER_BASE + "retrieve_before_timestamp?user=j9z4KEQrE0gDfIj8atdcftXp5z92")
+        .then((res) => res.json())
+        .then((data) => {
+          let time = data.pop()
+          console.log(data)
+          setPostData(data)
+        })
+    }, [])
+
     return (
-      <div>
-        <div className="px-20 z-0 w-full min-h-screen min-w-screen items-center flex-col justify-center align-center font-mono text-sm lg:flex">
-          <h1 className="font-mono font-bold text-7xl mt-10 mb-5">Dashboard</h1>
-          <h4 className="font-mono text-xl mt-5 mb-5">Never gonna give you up, never gonna let you down, never gonna turn around and desert you</h4>
-          <h4 className="font-mono text-lg mt-5 mb-5">Never gonna make you cry, never gonna say goodbye, never gonna tell a lie and hurt you</h4>
-        </div>
+      <div className="mt-40">
+          <h1 className="font-mono font-bold text-5xl mt-10 mb-5">My Posts</h1>
+          {postData ? postData.map((e: PostProps) => (
+              <PostCard key={uuidv4()} content={e.content} date={e.date} mood={e.mood}></PostCard>
+          )) : <></>}
       </div>
-    )
+  );
   }
