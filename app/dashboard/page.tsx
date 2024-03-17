@@ -16,23 +16,42 @@ export default function DashBoard(
     }
 
     const [postData, setPostData] = useState<any[]>([])
+    const [timestamp, setTimestamp] = useState<number>(0)
 
-    useEffect(() => {
-      fetch(process.env.NEXT_PUBLIC_SERVER_BASE + "retrieve_before_timestamp?user=j9z4KEQrE0gDfIj8atdcftXp5z92")
+    const fetchData = () => {
+      fetch(timestamp > 0 ?`${process.env.NEXT_PUBLIC_SERVER_BASE}retrieve_before_timestamp?user=${user.user.uid}&timestamp=${timestamp.toString()}`
+      :`${process.env.NEXT_PUBLIC_SERVER_BASE}retrieve_before_timestamp?user=${user.user.uid}`)
         .then((res) => res.json())
         .then((data) => {
-          let time = data.pop()
-          console.log(data)
-          setPostData(data)
+          let time = data.pop();
+          let updatedData = postData;
+          for (let i = 0; i < data.length; i++) {
+            updatedData.push(data[i]);
+          }
+          setPostData(updatedData);
+          setTimestamp(time);
         })
+    }
+ 
+    useEffect(() => {
+      fetchData()
     }, [])
+
+    const handleScroll = (event: any) => {
+      //checks for if user has scrolled to bottom
+      if (event.target.scrollTop + event.target.clientHeight >= event.target.scrollHeight) {
+        fetchData()
+      }
+    }
 
     return (
       <div className="mt-40">
-          <h1 className="font-mono font-bold text-5xl mt-10 mb-5">My Posts</h1>
-          {postData ? postData.map((e: PostProps) => (
-              <PostCard key={uuidv4()} content={e.content} date={e.date} mood={e.mood}></PostCard>
-          )) : <></>}
+        <h1 className="font-mono font-bold text-5xl mt-10 mb-5">My Posts</h1>
+        <div className="overflow-y-scroll h-screen" onScroll={handleScroll}>
+            {postData ? postData.map((e: PostProps) => (
+                <PostCard key={uuidv4()} content={e.content} date={e.date} mood={e.mood} id={e.id}></PostCard>
+            )) : <></>}
+        </div>
       </div>
   );
   }
