@@ -29,7 +29,9 @@ export default function DashBoard(
             updatedData.push(data[i]);
           }
           setPostData(updatedData);
-          setTimestamp(time);
+          if (time) {
+            setTimestamp(time);
+          }
         })
     }
  
