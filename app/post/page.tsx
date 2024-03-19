@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import {AuthContext } from '../authContext'
 import React, {useContext, useState} from 'react'
+import { Alert } from 'flowbite-react';
 
 
 export default function Home() {
@@ -17,6 +18,17 @@ export default function Home() {
     let [date, setDate] = useState('')
     let [content, setContent] = useState('')
     let [charsRemaining, setCharsRemaining] = useState(4000)
+    let [error, setError] = useState('')
+    let [success, setSuccess] = useState(false)
+
+    const disableButton = async() => {
+      let button = document.getElementById('postButton');
+      if (button) {
+        button.style.display = 'none';
+        await new Promise((r: any) => {setTimeout(r, 1000)});
+        button.style.display = 'block';
+      }
+    }
 
     const post = async() => {
       if (date && content) {
@@ -26,19 +38,28 @@ export default function Home() {
             date: date,
             content: content
           }
-          let response = await fetch ("http://localhost:5000/add_entry/", {
+          let response = await fetch (`${process.env.NEXT_PUBLIC_SERVER_BASE}add_entry/`, {
             method: 'POST',
             body: JSON.stringify(body),
             headers: {'Content-Type': 'application/json'}
           })
+          //alert success
+          setError('');
+          setSuccess(true);
+          //disable post button for 1s
+          disableButton();
           return response;
         }
         catch (e) {
+          //alert failure
+          setSuccess(false);
+          setError("Encountered error trying to post entry, please try again later!");
           console.error(e);
         }
       }
       else {
-        console.error('post not complete, invalid fields');
+        setSuccess(false);
+        setError('Please fill out all fields!');
       }
     }
 
@@ -53,6 +74,12 @@ export default function Home() {
 
     return (
       <div>
+        {error.length ? <Alert color="failure" className="mt-20" onDismiss={() => {setError('')}}>
+          <span className="font-medium">{error}</span>
+        </Alert>: <></>}
+        {success ? <Alert color="success" className="mt-20" onDismiss={() => {setSuccess(false)}}>
+          <span className="font-medium">Successfully added journal entry for {date}</span>
+        </Alert>: <></>}
         <div className="px-20 z-0 w-full min-h-screen min-w-screen items-center flex-col justify-center align-center font-mono text-sm lg:flex">
           <h1 className="font-mono font-bold text-7xl mt-10 mb-5">Make a post!</h1>
             <label className="block text-sm font-medium text-gray-900 dark:text-white">Select date</label>
@@ -66,7 +93,7 @@ export default function Home() {
           </div>
             <textarea id="message" rows={4} className="mt-10 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..." onChange={changeContent} maxLength={4000}></textarea>
             <h3 className="text-red-700">{charsRemaining == 0 ? "Please limit posts to 4000 characters or less" : ""}</h3>
-            <button type="button" className="py-2.5 px-5 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" onClick={post}>Alternative</button>
+            <button type="button" id='postButton' className="py-2.5 px-5 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" onClick={post}>Post</button>
         </div>
       </div>
     )
