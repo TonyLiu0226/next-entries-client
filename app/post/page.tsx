@@ -43,6 +43,10 @@ export default function Home() {
             body: JSON.stringify(body),
             headers: {'Content-Type': 'application/json'}
           })
+
+          if (response.status !== 200) {
+            throw new Error (response.status.toString())
+          }
           //alert success
           setError('');
           setSuccess(true);
