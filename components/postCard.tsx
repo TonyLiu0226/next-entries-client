@@ -1,5 +1,5 @@
 'use client'
-
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useState, useEffect } from 'react'
 import {Card} from 'flowbite-react'
@@ -7,6 +7,8 @@ import {Button} from 'flowbite-react'
 import {PostProps} from '../interfaces/postProps'
 
 const PostCard = (props : PostProps) => {
+
+    const router = useRouter();
 
     const isMoodPositive = () => {
         if (!props.mood) return false // no mood means bad mood lol
@@ -26,7 +28,7 @@ const PostCard = (props : PostProps) => {
         <p className="font-normal text-gray-700 dark:text-gray-400">
           Posted on: {new Date((props.id)).toString()}
         </p>
-        <Button>
+        <Button onClick={() => {router.push(`/entry/${props.id}`)}}>
           Read more
           <svg className="-mr-1 ml-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path
