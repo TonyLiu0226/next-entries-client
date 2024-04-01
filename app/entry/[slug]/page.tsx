@@ -24,18 +24,20 @@ export default function Entry() {
 
     //get entry data
     const fetchData = () => {
-        fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE}retrieve_by_id?user=${user.user.uid}&id=${slug}`)
+      //make sure path is valid:
+        if (window.location.pathname.includes('entry')) {
+          fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE}retrieve_by_id?user=${user.user.uid}&id=${slug}`)
           .then((res) => res.json())
           .then((data) => {
-            if (!data.date || !data.content || !data.mood || !data.id) {
+            if (!data[0].date || !data[0].content || !data[0].mood || !data[0].id) {
                 throw new Error(`no data found for ${slug}`)
             }
             else {
-                setDate(data.date);
-                setContent(data.content);
-                setMood(data.mood);
-                setCharacter(data.character);
-                setId(data.id);
+                setDate(data[0].date);
+                setContent(data[0].content);
+                setMood(data[0].mood);
+                setCharacter(data[0].character);
+                setId(data[0].id);
             }
           })
           .catch((e) => {
@@ -46,11 +48,12 @@ export default function Entry() {
             setCharacter("");
             setId(-1);
           })
+        }
       }
    
       useEffect(() => {
         fetchData()
-      }, [])
+      }, [slug])
 
     return (
         <Card className="max-w-sm" imgSrc={`${character}.jpg`} horizontal>

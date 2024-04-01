@@ -41,7 +41,7 @@ export default function DashBoard(
 
     const handleScroll = (event: any) => {
       //checks for if user has scrolled to bottom
-      if (event.target.scrollTop + event.target.clientHeight >= event.target.scrollHeight) {
+      if (Math.ceil(event.target.scrollTop + event.target.clientHeight) >= event.target.scrollHeight) {
         fetchData()
       }
     }
