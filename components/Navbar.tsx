@@ -133,7 +133,7 @@ const NavMenu = () => {
                     <script src="https://kit.fontawesome.com/a1540a5ac8.js"></script>
                     <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                     <a href="/" className="flex items-center">
-                            <img src="moodsense_logo_partial.png" className="w-36 h-12 mr-1" alt="MoodSense" />
+                            <img src="/moodsense_logo_partial.png" className="w-36 h-12 mr-1" alt="MoodSense" />
                             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
                         </a>
                         <div className="flex items-center md:order-2">

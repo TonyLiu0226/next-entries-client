@@ -18,14 +18,14 @@ const PostCard = (props : PostProps) => {
         else return false
     }
     return(
-        <Card className={isMoodPositive() ? "max-w-xl my-5 bg-green-400" : "max-w-xl my-5 bg-red-400"}>
+        <Card className={isMoodPositive() ? "max-w-xl my-5 bg-green-400 dark:bg-emerald-300" : "max-w-xl my-5 bg-red-400 dark:bg-pink-400"}>
         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {props.date.split(':')[0].slice(0, -2)}
         </h5>
-        <p className="font-normal text-gray-700 dark:text-gray-400">
+        <p className="font-normal text-gray-700 dark:text-white">
           {props.content.length > 500 ? props.content.slice(0, 500) : props.content}
         </p>
-        <p className="font-normal text-gray-700 dark:text-gray-400">
+        <p className="font-normal text-gray-700 dark:text-white">
           Posted on: {new Date((props.id)).toString()}
         </p>
         <Button onClick={() => {router.push(`/entry/${props.id}`)}}>

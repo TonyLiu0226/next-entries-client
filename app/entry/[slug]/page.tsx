@@ -56,19 +56,19 @@ export default function Entry() {
       }, [slug])
 
     return (
-        <Card className="max-w-sm" imgSrc={`${character}.jpg`} horizontal>
+        <Card className={mood == "positive" ? "max-w-sm my-5 bg-green-400 dark:bg-emerald-300" : "max-w-sm my-5 bg-red-400 dark:bg-pink-400"} imgSrc={`/${character}.png`} horizontal>
         {id !== -1 ? (
             <>
-            <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            <h5 className="text-2xl font-bold tracking-tight text-gray-900">
                 {date.split(':')[0].slice(0, -2)}
             </h5>
-            <p className="text-lg font-bold tracking-tight text-gray-800 dark:text-gray-300">
+            <p className="text-lg font-bold tracking-tight text-gray-800">
                 Posted on: {new Date(id).toString()}
             </p>
-            <p className="text-lg font-bold tracking-tight text-gray-800 dark:text-gray-300">
+            <p className="text-lg font-bold tracking-tight text-gray-800">
                 Mood: {mood}
             </p>
-            <p className="font-normal text-gray-700 dark:text-gray-400">
+            <p className="font-normal text-gray-700">
                 {content}
             </p>
             </>
