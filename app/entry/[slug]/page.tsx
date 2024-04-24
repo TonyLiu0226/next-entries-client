@@ -56,7 +56,8 @@ export default function Entry() {
       }, [slug])
 
     return (
-        <Card className={mood == "positive" ? "max-w-sm my-5 bg-green-400 dark:bg-emerald-300" : "max-w-sm my-5 bg-red-400 dark:bg-pink-400"} imgSrc={`/${character}.png`} horizontal>
+      <div className='flex flex-column justify-center'>
+        {window.innerWidth > 960 ? <Card className={mood == "positive" ? "max-w-sm my-5 bg-green-400 dark:bg-emerald-300" : "max-w-sm my-5 bg-red-400 dark:bg-pink-400"} imgSrc={`/${character}.png`} horizontal>
         {id !== -1 ? (
             <>
             <h5 className="text-2xl font-bold tracking-tight text-gray-900">
@@ -75,6 +76,28 @@ export default function Entry() {
         ) : (
             <p>No content found for {slug}</p>
         )}
-</Card>
+</Card> : 
+<Card className={mood == "positive" ? "max-w-sm my-5 bg-green-400 dark:bg-emerald-300" : "max-w-sm my-5 bg-red-400 dark:bg-pink-400"} imgSrc={`/${character}.png`}>
+        {id !== -1 ? (
+            <>
+            <h5 className="text-2xl font-bold tracking-tight text-gray-900">
+                {date.split(':')[0].slice(0, -2)}
+            </h5>
+            <p className="text-lg font-bold tracking-tight text-gray-800">
+                Posted on: {new Date(id).toString()}
+            </p>
+            <p className="text-lg font-bold tracking-tight text-gray-800">
+                Mood: {mood}
+            </p>
+            <p className="font-normal text-gray-700">
+                {content}
+            </p>
+            </>
+        ) : (
+            <p>No content found for {slug}</p>
+        )}
+</Card>}
+        
+</div>
     )
   }
