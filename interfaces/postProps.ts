@@ -4,4 +4,5 @@ export interface PostProps {
     date: string,
     mood: string
     id: number,
+    user: string
 }

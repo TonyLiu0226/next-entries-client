@@ -53,7 +53,7 @@ export default function DashBoard(
         </div>
         <div className="overflow-y-scroll h-screen" onScroll={handleScroll}>
             {postData ? postData.map((e: PostProps) => (
-                <PostCard key={uuidv4()} content={e.content} date={e.date} mood={e.mood} id={e.id}></PostCard>
+                <PostCard key={uuidv4()} content={e.content} date={e.date} mood={e.mood} id={e.id} user={user.user.uid}></PostCard>
             )) : <></>}
         </div>
       </div>
